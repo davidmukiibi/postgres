@@ -1,0 +1,17 @@
+---
+- hosts: localhost
+  connection: local
+  tasks:
+  - name: install postgres
+    apt:
+      name: "{{ item }}"
+      state: installed
+    with_items:
+    - postgresql
+    notify:
+    - start postgres
+    
+  handlers:
+  - name: start postgres
+    service: name=postgresql state=started enabled=true
+  
